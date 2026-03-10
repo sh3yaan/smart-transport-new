@@ -55,27 +55,6 @@ Frontend:
 
 ---
 
-## 📂 Project Structure
-escrow-transport
-│
-├── contracts
-│ └── Escrow.sol
-│
-├── scripts
-│
-├── artifacts
-├── cache
-│
-├── deploy.js
-├── testEscrow.js
-├── display.js
-│
-├── package.json
-├── hardhat.config.ts
-└── README.md
-
----
-
 ## 🚀 Running the Project
 
 ### 1 Install dependencies
