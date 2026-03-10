@@ -101,5 +101,4 @@ All transactions are stored on the blockchain and cannot be altered.
 
 ---
 
-## 👨‍💻 Author
 
