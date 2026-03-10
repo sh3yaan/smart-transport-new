@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Smart Transport Escrow</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>🚚 Smart Transport Escrow</h1>
+
+<button onclick="connectWallet()">Connect Wallet</button>
+
+<h2>Create Order</h2>
+<input id="driverAddress" placeholder="Driver Address">
+<input id="ethAmount" placeholder="ETH Amount">
+<button onclick="createOrder()">Create Order</button>
+
+<h2>Submit Delivery Proof</h2>
+<input id="orderIdProof" placeholder="Order ID">
+<input id="proof" placeholder="IPFS proof">
+<button onclick="submitProof()">Submit Proof</button>
+
+<h2>Confirm Delivery</h2>
+<input id="orderIdConfirm" placeholder="Order ID">
+<button onclick="confirmDelivery()">Confirm Delivery</button>
+
+<h2>View Order</h2>
+
+<input id="viewOrderId" placeholder="Order ID">
+<button onclick="viewOrder()">View Order</button>
+
+<div id="orderDetails"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.8.1/dist/ethers.umd.min.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
