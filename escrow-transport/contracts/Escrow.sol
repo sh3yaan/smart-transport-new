@@ -22,6 +22,13 @@ contract Escrow {
     uint public orderCount;
     mapping(uint => Order) public orders;
 
+    // Events for transparent transaction logging on blockchain
+    event OrderCreated(uint indexed orderId, address indexed customer, address indexed driver, uint amount);
+    event DeliveryProofSubmitted(uint indexed orderId, address indexed driver, string proof);
+    event DeliveryConfirmed(uint indexed orderId, address indexed customer, address indexed driver, uint amount);
+    event DisputeRaised(uint indexed orderId, address indexed customer);
+    event DisputeResolved(uint indexed orderId, bool paidToDriver, uint amount);
+
     // Customer creates order and locks payment
     function createOrder(address _driver) public payable {
 
@@ -38,6 +45,8 @@ contract Escrow {
             false,
             ""
         );
+
+        emit OrderCreated(orderCount, msg.sender, _driver, msg.value);
     }
 
     // Driver submits delivery proof (photo hash / document hash)
@@ -48,6 +57,8 @@ contract Escrow {
         require(msg.sender == order.driver, "Only driver can submit proof");
 
         order.deliveryProof = proof;
+
+        emit DeliveryProofSubmitted(orderId, msg.sender, proof);
     }
 
     // Customer confirms delivery and releases payment
@@ -63,6 +74,8 @@ contract Escrow {
         order.paid = true;
 
         payable(order.driver).transfer(order.amount);
+
+        emit DeliveryConfirmed(orderId, msg.sender, order.driver, order.amount);
     }
 
     // Customer raises dispute
@@ -74,6 +87,8 @@ contract Escrow {
         require(!order.paid, "Already paid");
 
         order.disputed = true;
+
+        emit DisputeRaised(orderId, msg.sender);
     }
 
     // Admin resolves dispute
@@ -93,6 +108,8 @@ contract Escrow {
         } else {
             payable(order.customer).transfer(order.amount);
         }
+
+        emit DisputeResolved(orderId, payDriver, order.amount);
     }
 
     function getOrder(uint orderId) public view returns(Order memory){
